@@ -32,8 +32,8 @@ const useFormValidation = (initialValues, validate) => {
     }
   };
 
-  const resetForm = () => {
-    setFormData(() => initialValues);
+  const resetForm = (role) => {
+    setFormData(() => ({ ...initialValues, role: role }));
     setErrors({});
   };
 
@@ -44,6 +44,7 @@ const useFormValidation = (initialValues, validate) => {
     handleChange,
     handleSubmit,
     resetForm,
+    isValidated,
   };
 };
 

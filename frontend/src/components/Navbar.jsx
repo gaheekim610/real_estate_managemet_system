@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const Navbar = () => {
+const Navbar = ({ handleRole }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -40,13 +40,19 @@ const Navbar = () => {
               Login
             </Link>
             <Link
-              to="/register/individual"
+              to="/register"
+              onClick={() => {
+                handleRole("individual");
+              }}
               className="bg-white-500 px-4 py-2 rounded hover:bg-gray-700"
             >
               SignUp
             </Link>
             <Link
-              to="/register/agent"
+              to="/register"
+              onClick={() => {
+                handleRole("agent");
+              }}
               className="bg-white-500 px-4 py-2 rounded hover:bg-gray-700"
             >
               Agent SignUp

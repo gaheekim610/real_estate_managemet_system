@@ -1,17 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+
 import axiosInstance from "../axiosConfig";
 
+import useFormValidation from "../hooks/useFormValidation";
+import validate from "../utils/validate";
+
 const Register = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    role: "",
-    agentname: "",
-    agentcode: "",
-  });
+  const {
+    formData,
+    errors,
+    handleRoles,
+    handleChange,
+    handleSubmit: validateSubmit,
+    resetForm,
+  } = useFormValidation(
+    {
+      name: "",
+      email: "",
+      password: "",
+      role: "",
+      agentname: "",
+      agentcode: "",
+    },
+    validate
+  );
   const navigate = useNavigate();
   const { role } = useParams();
 
@@ -29,9 +43,8 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (role) {
-      setFormData((prev) => ({ ...prev, role: role }));
-    }
+    resetForm();
+    handleRoles(role);
   }, [role]);
 
   return (
@@ -42,47 +55,60 @@ const Register = () => {
         </h1>
         <input
           type="text"
+          name="name"
           placeholder="Name"
           value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          onChange={handleChange}
           className="w-full mb-4 p-2 border rounded"
         />
+        {errors.name && <p className="text-red-600 mb-4">{errors.name}</p>}
         <input
           type="email"
+          name="email"
           placeholder="Email"
           value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          onChange={handleChange}
           className="w-full mb-4 p-2 border rounded"
         />
+        {errors.email && <p className="text-red-600 mb-4">{errors.email}</p>}
+
         <input
           type="password"
+          name="password"
           placeholder="Password"
           value={formData.password}
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
-          }
+          onChange={handleChange}
           className="w-full mb-4 p-2 border rounded"
         />
+        {errors.password && (
+          <p className="text-red-600 mb-4">{errors.password}</p>
+        )}
+
         {isAgent ? (
           <>
             <input
-              type="agentname"
+              type="text"
+              name="agentname"
               placeholder="Agent Name"
               value={formData.agentName}
-              onChange={(e) =>
-                setFormData({ ...formData, agentname: e.target.value })
-              }
+              onChange={handleChange}
               className="w-full mb-4 p-2 border rounded"
             />
+            {errors.agentname && (
+              <p className="text-red-600 mb-4">{errors.agentname}</p>
+            )}
+
             <input
-              type="agentcode"
+              type="text"
+              name="agentcode"
               placeholder="Agent code"
               value={formData.agentName}
-              onChange={(e) =>
-                setFormData({ ...formData, agentcode: e.target.value })
-              }
+              onChange={handleChange}
               className="w-full mb-4 p-2 border rounded"
             />
+            {errors.agentcode && (
+              <p className="text-red-600 mb-4">{errors.agentcode}</p>
+            )}
           </>
         ) : (
           <></>

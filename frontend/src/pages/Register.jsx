@@ -1,19 +1,17 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 import axiosInstance from "../axiosConfig";
 
 import useFormValidation from "../hooks/useFormValidation";
 import validate from "../utils/validate";
 
-const Register = () => {
+const Register = ({ role }) => {
   const {
     formData,
     errors,
-    handleRoles,
     handleChange,
-    handleSubmit: validateSubmit,
+    // handleSubmit: validateSubmit,
     resetForm,
   } = useFormValidation(
     {
@@ -27,7 +25,6 @@ const Register = () => {
     validate
   );
   const navigate = useNavigate();
-  const { role } = useParams();
 
   const isAgent = role === "agent";
 
@@ -43,8 +40,10 @@ const Register = () => {
   };
 
   useEffect(() => {
-    resetForm();
-    handleRoles(role);
+    resetForm(role);
+    console.log(formData);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [role]);
 
   return (

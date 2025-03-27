@@ -5,8 +5,8 @@ import useFormValidation from "../hooks/useFormValidation";
 import validate from "../utils/validate";
 
 const PropertyForm = ({
-  property,
-  setProperty,
+  properties,
+  setProperties,
   editingProperty,
   setEditingProperty,
 }) => {
@@ -22,7 +22,7 @@ const PropertyForm = ({
   );
 
   useEffect(() => {
-    if (property) {
+    if (editingProperty) {
       setFormData({
         title: editingProperty?.title,
         description: editingProperty?.description,
@@ -45,8 +45,8 @@ const PropertyForm = ({
             headers: { Authorization: `Bearer ${user.token}` },
           }
         );
-        setProperty(
-          property.map((property) =>
+        setProperties(
+          properties.map((property) =>
             property._id === response.data._id ? response.data : property
           )
         );
@@ -54,7 +54,7 @@ const PropertyForm = ({
         const response = await axiosInstance.post("/api/property", formData, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
-        setProperty([...property, response.data]);
+        setProperties([...properties, response.data]);
       }
       setEditingProperty(null);
       setFormData({ title: "", description: "", image: "" });

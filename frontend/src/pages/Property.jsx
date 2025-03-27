@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 
 const Property = () => {
   const { user } = useAuth();
-  const [property, setProperty] = useState([]);
+  const [properties, setProperties] = useState([]);
   const [editingProperty, setEditingProperty] = useState(null);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const Property = () => {
         const response = await axiosInstance.get("/api/property", {
           headers: { Authorization: `Bearer ${user.token}` },
         });
-        setProperty(response.data);
+        setProperties(response.data);
       } catch (error) {
         alert("Failed to fetch property.");
       }
@@ -27,14 +27,14 @@ const Property = () => {
   return (
     <div className="container mx-auto p-6">
       <PropertyForm
-        property={property}
-        setProperty={setProperty}
+        properties={properties}
+        setProperties={setProperties}
         editingProperty={editingProperty}
         setEditingProperty={setEditingProperty}
       />
       <PropertyList
-        property={property}
-        setProperty={setProperty}
+        properties={properties}
+        setProperties={setProperties}
         setEditingProperty={setEditingProperty}
       />
     </div>

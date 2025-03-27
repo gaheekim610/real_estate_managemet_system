@@ -42,6 +42,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
+    console.log("login user", user);
 
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({

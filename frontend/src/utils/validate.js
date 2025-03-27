@@ -1,6 +1,4 @@
 const validate = (values) => {
-  console.log("validate values", values);
-
   let errors = {};
 
   // * name : min 1, max 30, only letter

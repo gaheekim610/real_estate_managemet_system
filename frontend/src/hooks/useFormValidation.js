@@ -5,13 +5,8 @@ const useFormValidation = (initialValues, validate) => {
   const [errors, setErrors] = useState({});
   const [isValidated, setIsValidated] = useState(false);
 
-  // const handleRoles = (role) => {
-  //   setFormData({ ...formData, role: role });
-  // };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log("handleChange name/value", name, value);
 
     setFormData({
       ...formData,

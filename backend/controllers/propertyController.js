@@ -45,23 +45,14 @@ const createProperty = async (req, res) => {
   }
 };
 
-// const getProperty = async (req, res) => {
-//   try {
-//     const user = await User.findById(req.user.id);
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-
-//     res.status(200).json({
-//       name: user.name,
-//       email: user.email,
-//       university: user.university,
-//       address: user.address,
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error: error.message });
-//   }
-// };
+const getProperties = async (req, res) => {
+  try {
+    const properties = await Property.find({ user: req.user.id });
+    res.status(200).json(properties);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
 
 // const updateProperty = async (req, res) => {
 //   try {
@@ -90,5 +81,6 @@ const createProperty = async (req, res) => {
 
 module.exports = {
   createProperty,
-  // getProperty, updateProperty
+  getProperties,
+  // updateProperty
 };

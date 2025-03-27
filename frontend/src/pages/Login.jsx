@@ -29,9 +29,7 @@ const Login = () => {
         type: "success",
         message: "Successfully Log in",
       });
-      setTimeout(() => {
-        navigate("/tasks");
-      }, 3000);
+      navigate("/property");
     } catch (error) {
       // alert("Login failed. Please try again.");
       const errMsg =

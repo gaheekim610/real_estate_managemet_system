@@ -18,8 +18,8 @@ const Navbar = ({ handleRole }) => {
       <div>
         {user ? (
           <>
-            <Link to="/tasks" className="mr-4">
-              CRUD
+            <Link to="/property" className="mr-4">
+              Property
             </Link>
             <Link to="/profile" className="mr-4">
               Profile

@@ -81,4 +81,4 @@ const updateProperty = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, updateUserProfile, getProfile };
+module.exports = { createProperty, getProperty, updateProperty };

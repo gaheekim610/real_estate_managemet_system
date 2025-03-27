@@ -10,8 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", require("./routes/authRoutes"));
-// app.use("/api/tasks", require("./routes/taskRoutes")); //tem
-app.use("/api/property", require("./routes/propertyRoutes")); // new
+app.use("/api/property", require("./routes/propertyRoutes"));
 
 // Export the app object for testing
 if (require.main === module) {

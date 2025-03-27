@@ -45,6 +45,10 @@ const validate = (values) => {
     errors.agentcode = "Agent code should contain only letters and numbers";
   }
 
+  if (!values.title) {
+    errors.title = "Title is required";
+  }
+
   return errors;
 };
 

@@ -12,7 +12,7 @@ const PropertyForm = ({
 }) => {
   const { user } = useAuth();
 
-  const { formData, setFormData, handleChange } = useFormValidation(
+  const { formData, setFormData, handleChange, errors } = useFormValidation(
     {
       title: "",
       description: "",
@@ -81,6 +81,8 @@ const PropertyForm = ({
         onChange={handleChange}
         className="w-full mb-4 p-2 border rounded"
       />
+      {errors.title && <p className="text-red-600 mb-4">{errors.title}</p>}
+
       <input
         type="text"
         name="description"
@@ -89,6 +91,10 @@ const PropertyForm = ({
         onChange={handleChange}
         className="w-full mb-4 p-2 border rounded"
       />
+      {errors.description && (
+        <p className="text-red-600 mb-4">{errors.description}</p>
+      )}
+
       <input
         type="text"
         name="image"
@@ -97,6 +103,8 @@ const PropertyForm = ({
         onChange={handleChange}
         className="w-full mb-4 p-2 border rounded"
       />
+      {errors.image && <p className="text-red-600 mb-4">{errors.image}</p>}
+
       <button
         type="submit"
         className="w-full bg-blue-600 text-white p-2 rounded"

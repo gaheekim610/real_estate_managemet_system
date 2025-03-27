@@ -7,13 +7,7 @@ import useFormValidation from "../hooks/useFormValidation";
 import validate from "../utils/validate";
 
 const Register = ({ role }) => {
-  const {
-    formData,
-    errors,
-    handleChange,
-    // handleSubmit: validateSubmit,
-    resetForm,
-  } = useFormValidation(
+  const { formData, errors, handleChange, resetForm } = useFormValidation(
     {
       name: "",
       email: "",
@@ -41,7 +35,6 @@ const Register = ({ role }) => {
 
   useEffect(() => {
     resetForm(role);
-    console.log(formData);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [role]);

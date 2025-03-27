@@ -88,4 +88,7 @@ const createProperty = async (req, res) => {
 //   }
 // };
 
-module.exports = { createProperty, getProperty, updateProperty };
+module.exports = {
+  createProperty,
+  // getProperty, updateProperty
+};

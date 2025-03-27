@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import axiosInstance from "../axiosConfig";
+import useFormValidation from "../hooks/useFormValidation";
+import validate from "../utils/validate";
 
 const PropertyForm = ({
   property,
@@ -9,11 +11,15 @@ const PropertyForm = ({
   setEditingProperty,
 }) => {
   const { user } = useAuth();
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    image: "",
-  });
+
+  const { formData, setFormData, handleChange } = useFormValidation(
+    {
+      title: "",
+      description: "",
+      image: "",
+    },
+    validate
+  );
 
   useEffect(() => {
     if (property) {
@@ -51,8 +57,10 @@ const PropertyForm = ({
         setProperty([...property, response.data]);
       }
       setEditingProperty(null);
-      setFormData({ title: "", description: "", deadline: "" });
+      setFormData({ title: "", description: "", image: "" });
     } catch (error) {
+      console.log("error", error);
+
       alert("Failed to save property.");
     }
   };
@@ -67,24 +75,26 @@ const PropertyForm = ({
       </h1>
       <input
         type="text"
+        name="title"
         placeholder="Title"
         value={formData.title}
-        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+        onChange={handleChange}
         className="w-full mb-4 p-2 border rounded"
       />
       <input
         type="text"
+        name="description"
         placeholder="Description"
         value={formData.description}
-        onChange={(e) =>
-          setFormData({ ...formData, description: e.target.value })
-        }
+        onChange={handleChange}
         className="w-full mb-4 p-2 border rounded"
       />
       <input
-        type="date"
-        value={formData.deadline}
-        onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
+        type="text"
+        name="image"
+        placeholder="Image"
+        value={formData.image}
+        onChange={handleChange}
         className="w-full mb-4 p-2 border rounded"
       />
       <button

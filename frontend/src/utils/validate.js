@@ -12,10 +12,10 @@ const validate = (values) => {
     errors.name = "Name should only contain letters";
   }
 
-  if (!values.emil) {
+  if (!values.email) {
     // * email: include “@”
     errors.email = "Email is required";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+  } else if (!/^[A-Zaz0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
     errors.email = "Invalid email address";
   }
 

@@ -42,6 +42,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
+
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({
         id: user.id,
@@ -67,8 +68,12 @@ const getProfile = async (req, res) => {
     res.status(200).json({
       name: user.name,
       email: user.email,
-      university: user.university,
-      address: user.address,
+      password: user.password,
+      role: user.role,
+      agentname: user.agentname,
+      agentcode: user.agentcode,
+      token: generateToken(user.id),
+      id: user.id,
     });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });

@@ -29,8 +29,8 @@ const registerUser = async (req, res) => {
       email: user.email,
       password: user.password,
       role: user.role,
-      agentname: user.agentname || "",
-      agentcode: user.agentcode || "",
+      agentname: user.agentname,
+      agentcode: user.agentcode,
       token: generateToken(user.id),
     });
   } catch (error) {

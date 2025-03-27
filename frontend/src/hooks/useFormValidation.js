@@ -5,9 +5,9 @@ const useFormValidation = (initialValues, validate) => {
   const [errors, setErrors] = useState({});
   const [isValidated, setIsValidated] = useState(false);
 
-  const handleRoles = (role) => {
-    setFormData({ ...formData, role: role });
-  };
+  // const handleRoles = (role) => {
+  //   setFormData({ ...formData, role: role });
+  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +40,7 @@ const useFormValidation = (initialValues, validate) => {
   return {
     formData,
     errors,
-    handleRoles,
+    // handleRoles,
     handleChange,
     handleSubmit,
     resetForm,

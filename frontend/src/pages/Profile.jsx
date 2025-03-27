@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
-import axiosInstance from '../axiosConfig';
+import { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
+import axiosInstance from "../axiosConfig";
 
 const Profile = () => {
   const { user } = useAuth(); // Access user token from context
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    university: '',
-    address: '',
+    name: "",
+    email: "",
+    role: "",
+    agentname: "",
+    agentcode: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -17,17 +18,19 @@ const Profile = () => {
     const fetchProfile = async () => {
       setLoading(true);
       try {
-        const response = await axiosInstance.get('/api/auth/profile', {
+        const response = await axiosInstance.get("/api/auth/profile", {
           headers: { Authorization: `Bearer ${user.token}` },
         });
+
         setFormData({
           name: response.data.name,
           email: response.data.email,
-          university: response.data.university || '',
-          address: response.data.address || '',
+          role: response.data.role,
+          agentname: response.data.agentname,
+          agentcode: response.data.agentcode,
         });
       } catch (error) {
-        alert('Failed to fetch profile. Please try again.');
+        alert("Failed to fetch profile. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -40,12 +43,12 @@ const Profile = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axiosInstance.put('/api/auth/profile', formData, {
+      await axiosInstance.put("/api/auth/profile", formData, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
-      alert('Profile updated successfully!');
+      alert("Profile updated successfully!");
     } catch (error) {
-      alert('Failed to update profile. Please try again.');
+      alert("Failed to update profile. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -61,6 +64,7 @@ const Profile = () => {
         <h1 className="text-2xl font-bold mb-4 text-center">Your Profile</h1>
         <input
           type="text"
+          name="name"
           placeholder="Name"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -68,6 +72,7 @@ const Profile = () => {
         />
         <input
           type="email"
+          name="email"
           placeholder="Email"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -75,20 +80,29 @@ const Profile = () => {
         />
         <input
           type="text"
-          placeholder="University"
-          value={formData.university}
-          onChange={(e) => setFormData({ ...formData, university: e.target.value })}
+          name="agentname"
+          placeholder="Agent Name"
+          value={formData.agentname}
+          onChange={(e) =>
+            setFormData({ ...formData, agentname: e.target.value })
+          }
           className="w-full mb-4 p-2 border rounded"
         />
         <input
           type="text"
-          placeholder="Address"
-          value={formData.address}
-          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+          name="agentcode"
+          placeholder="Agent Code"
+          value={formData.agentcode}
+          onChange={(e) =>
+            setFormData({ ...formData, agentcode: e.target.value })
+          }
           className="w-full mb-4 p-2 border rounded"
         />
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
-          {loading ? 'Updating...' : 'Update Profile'}
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white p-2 rounded"
+        >
+          {loading ? "Updating..." : "Update Profile"}
         </button>
       </form>
     </div>

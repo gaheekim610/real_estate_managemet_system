@@ -9,6 +9,7 @@ const PropertyForm = ({
   setProperties,
   editingProperty,
   setEditingProperty,
+  refresh,
 }) => {
   const { user } = useAuth();
 
@@ -54,13 +55,14 @@ const PropertyForm = ({
         const response = await axiosInstance.post("/api/property", formData, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
+
         setProperties([...properties, response.data]);
       }
+      // fetch data for refreshing
+      await refresh();
       setEditingProperty(null);
       setFormData({ title: "", description: "", image: "" });
     } catch (error) {
-      console.log("error", error);
-
       alert("Failed to save property.");
     }
   };

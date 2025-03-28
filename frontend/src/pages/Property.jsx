@@ -9,19 +9,20 @@ const Property = () => {
   const [properties, setProperties] = useState([]);
   const [editingProperty, setEditingProperty] = useState(null);
 
-  useEffect(() => {
-    const fetchProperty = async () => {
-      try {
-        const response = await axiosInstance.get("/api/property", {
-          headers: { Authorization: `Bearer ${user.token}` },
-        });
-        setProperties(response.data);
-      } catch (error) {
-        alert("Failed to fetch property.");
-      }
-    };
+  const fetchProperty = async () => {
+    try {
+      const response = await axiosInstance.get("/api/property", {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+      setProperties(response.data);
+    } catch (error) {
+      alert("Failed to fetch property.");
+    }
+  };
 
+  useEffect(() => {
     fetchProperty();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
@@ -31,6 +32,7 @@ const Property = () => {
         setProperties={setProperties}
         editingProperty={editingProperty}
         setEditingProperty={setEditingProperty}
+        refresh={fetchProperty}
       />
       <PropertyList
         properties={properties}

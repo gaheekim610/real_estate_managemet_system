@@ -9,6 +9,7 @@ const generateToken = (id) => {
 
 const createProperty = async (req, res) => {
   const currentUser = await User.findById(req.user.id);
+  console.log("currentUser", currentUser);
 
   if (!currentUser || currentUser.role !== "agent") {
     return res
@@ -22,15 +23,10 @@ const createProperty = async (req, res) => {
       title,
       description,
       image,
-      user: req.user.id,
+      user: currentUser._id,
     });
 
-    res.status(201).json({
-      title,
-      description,
-      image,
-      token: generateToken(property.user),
-    });
+    res.status(201).json(property);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -66,8 +62,35 @@ const updateProperty = async (req, res) => {
   }
 };
 
+const deleteProperty = async (req, res) => {
+  try {
+    const property = await Property.findById(req.params.id);
+
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+    console.log("property", property);
+
+    // console.log("comparision", property.user.toString() !== req.user.id));
+
+    if (property.user.toString() !== req.user.id) {
+      return res
+        .status(403)
+        .json({ message: "Only authorised user can delete" });
+    }
+    await property.deleteOne();
+
+    res.status(200).json({ message: "Property deleted successfully" });
+  } catch (error) {
+    console.log("delete error", error);
+
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createProperty,
   getProperties,
   updateProperty,
+  deleteProperty,
 };

@@ -25,10 +25,12 @@ const PropertyList = ({ properties, setProperties, setEditingProperty }) => {
             key={property._id}
             className="bg-gray-100 p-4 mb-4 rounded shadow"
           >
-            <h2 className="font-bold">{property.title}</h2>
-            <p>{property.description}</p>
-            <p className="text-sm text-gray-500">
-              Deadline: {new Date(property.deadline).toLocaleDateString()}
+            <h2 className="font-bold" name="title">
+              {property.title}
+            </h2>
+            <p name="description">{property.description}</p>
+            <p name="image" className="text-sm text-gray-500">
+              {property.image}
             </p>
             <div className="mt-2">
               <button

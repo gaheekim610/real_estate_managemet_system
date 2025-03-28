@@ -1,15 +1,8 @@
 const User = require("../models/User");
 const Property = require("../models/Property");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
-};
 
 const createProperty = async (req, res) => {
   const currentUser = await User.findById(req.user.id);
-  console.log("currentUser", currentUser);
 
   if (!currentUser || currentUser.role !== "agent") {
     return res
@@ -34,7 +27,14 @@ const createProperty = async (req, res) => {
 
 const getProperties = async (req, res) => {
   try {
-    const properties = await Property.find({ user: req.user.id });
+    let properties;
+
+    if (req.user.role === "agent") {
+      properties = await Property.find({ user: req.user._id });
+    } else {
+      properties = await Property.find();
+    }
+
     res.status(200).json(properties);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -69,9 +69,6 @@ const deleteProperty = async (req, res) => {
     if (!property) {
       return res.status(404).json({ message: "Property not found" });
     }
-    console.log("property", property);
-
-    // console.log("comparision", property.user.toString() !== req.user.id));
 
     if (property.user.toString() !== req.user.id) {
       return res
@@ -82,8 +79,6 @@ const deleteProperty = async (req, res) => {
 
     res.status(200).json({ message: "Property deleted successfully" });
   } catch (error) {
-    console.log("delete error", error);
-
     res.status(500).json({ message: error.message });
   }
 };

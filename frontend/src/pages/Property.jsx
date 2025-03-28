@@ -21,19 +21,24 @@ const Property = () => {
   };
 
   useEffect(() => {
-    fetchProperty();
+    if (user) {
+      fetchProperty();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
     <div className="container mx-auto p-6">
-      <PropertyForm
-        properties={properties}
-        setProperties={setProperties}
-        editingProperty={editingProperty}
-        setEditingProperty={setEditingProperty}
-        refresh={fetchProperty}
-      />
+      {user?.role === "agent" && (
+        <PropertyForm
+          properties={properties}
+          setProperties={setProperties}
+          editingProperty={editingProperty}
+          setEditingProperty={setEditingProperty}
+          refresh={fetchProperty}
+        />
+      )}
       <PropertyList
         properties={properties}
         setProperties={setProperties}

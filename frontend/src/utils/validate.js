@@ -27,24 +27,23 @@ const validate = (values) => {
   } else if (!/[0-9]/.test(values.password)) {
     errors.password = "Password should contain at least one number";
   }
-  // * agent name: min 1, max 30,
-  if (!values.agentname || !values.agentname.trim()) {
-    errors.agentname = "Agent name is required";
-  } else if (values.agentname.length > 30) {
-    errors.agentname = "Agent name should not exceed 30 characters";
-  } else if (!/^[A-Za-z]+$/.test(values.agentname)) {
-    errors.agentname = "Agent name should only contain letters";
-  }
 
-  // * agent registration code: text and number only
-  if (!values.agentcode) {
-    errors.agentcode = "Agent code is required";
-  } else if (!/^[A-Za-z0-9]+$/.test(values.agentcode)) {
-    errors.agentcode = "Agent code should contain only letters and numbers";
-  }
+  if (values.role === "agent") {
+    // * agent name: min 1, max 30,
+    if (!values.agentname || !values.agentname.trim()) {
+      errors.agentname = "Agent name is required";
+    } else if (values.agentname.length > 30) {
+      errors.agentname = "Agent name should not exceed 30 characters";
+    } else if (!/^[A-Za-z]+$/.test(values.agentname)) {
+      errors.agentname = "Agent name should only contain letters";
+    }
 
-  if (!values.title) {
-    errors.title = "Title is required";
+    // * agent registration code: text and number only
+    if (!values.agentcode) {
+      errors.agentcode = "Agent code is required";
+    } else if (!/^[A-Za-z0-9]+$/.test(values.agentcode)) {
+      errors.agentcode = "Agent code should contain only letters and numbers";
+    }
   }
 
   return errors;

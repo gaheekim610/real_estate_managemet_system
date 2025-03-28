@@ -9,23 +9,31 @@ import AlertMessage from "../components/AlertMessage";
 
 const Register = ({ role }) => {
   const [alert, setAlert] = useState(null);
-  const { formData, errors, handleChange, resetForm } = useFormValidation(
-    {
-      name: "",
-      email: "",
-      password: "",
-      role: "",
-      agentname: "",
-      agentcode: "",
-    },
-    validate
-  );
+  const { formData, errors, handleChange, resetForm, isValidated } =
+    useFormValidation(
+      {
+        name: "",
+        email: "",
+        password: "",
+        role: "",
+        agentname: "",
+        agentcode: "",
+      },
+      validate
+    );
   const navigate = useNavigate();
 
   const isAgent = role === "agent";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isValidated) {
+      setAlert({
+        type: "error",
+        message: "Missing or invalid input fields",
+      });
+      return;
+    }
 
     try {
       await axiosInstance.post("/api/auth/register", formData);
@@ -118,7 +126,7 @@ const Register = ({ role }) => {
                 type="text"
                 name="agentname"
                 placeholder="Agent Name"
-                value={formData.agentName}
+                value={formData.agentname}
                 onChange={handleChange}
                 className="w-full mb-4 p-2 border rounded"
               />
@@ -130,7 +138,7 @@ const Register = ({ role }) => {
                 type="text"
                 name="agentcode"
                 placeholder="Agent code"
-                value={formData.agentName}
+                value={formData.agentcode}
                 onChange={handleChange}
                 className="w-full mb-4 p-2 border rounded"
               />
@@ -145,6 +153,7 @@ const Register = ({ role }) => {
           <button
             type="submit"
             className="w-full bg-gray-600 text-white p-2 rounded"
+            disabled={!isValidated}
           >
             Register
           </button>

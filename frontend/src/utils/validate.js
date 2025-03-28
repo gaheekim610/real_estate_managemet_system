@@ -6,7 +6,7 @@ const validate = (values) => {
     errors.name = "Name should be at least 1 letter";
   } else if (values.name.length > 30) {
     errors.name = "Name should not exceed 30 characters";
-  } else if (!/^[A-Za-z]+$/.test(values.name)) {
+  } else if (!/^[A-Za-z\s]+$/.test(values.name)) {
     errors.name = "Name should only contain letters";
   }
 

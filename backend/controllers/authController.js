@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const inputValidation = require("../utils/inputValidation");
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
+const generateToken = (id, role) => {
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
 const registerUser = async (req, res) => {
@@ -37,7 +37,7 @@ const registerUser = async (req, res) => {
       role: user.role,
       agentname: user.agentname,
       agentcode: user.agentcode,
-      token: generateToken(user.id),
+      token: generateToken(user.id, user.role),
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -48,14 +48,16 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
-    console.log("login user", user);
 
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({
         id: user.id,
         name: user.name,
         email: user.email,
-        token: generateToken(user.id),
+        role: user.role,
+        agentname: user.agentname,
+        agentcode: user.agentcode,
+        token: generateToken(user.id, user.role),
       });
     } else {
       res.status(400).json({ message: "Invalid email or password" });

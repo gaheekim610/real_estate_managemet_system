@@ -52,7 +52,6 @@ const Login = () => {
 
   return (
     <>
-      {" "}
       {alert && (
         <div className="flex justify-center mt-4">
           <AlertMessage

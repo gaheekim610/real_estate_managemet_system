@@ -231,8 +231,6 @@ describe("Auth Controller - Login", async () => {
 
     await loginUser(req, res);
 
-    console.log("wrong credentials", res.status.getCall(0).args[0]);
-
     expect(res.status.calledWith(400)).to.be.true;
     expect(res.json.calledWithMatch({ message: "Invalid email or password" }))
       .to.be.true;

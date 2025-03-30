@@ -46,7 +46,7 @@ const updateProperty = async (req, res) => {
     const property = await Property.findById(req.params.id);
 
     // ONly the person who write the property can edit it
-    if (property.user.toString() !== req.user.id) {
+    if (property.user.toString() !== req.user.id || req.user.role !== "agent") {
       return res.status(403).json({ message: "Not authorised" });
     }
     const { title, description, image } = req.body;
@@ -64,6 +64,9 @@ const updateProperty = async (req, res) => {
 
 const deleteProperty = async (req, res) => {
   try {
+    if (req.user.role !== "agent") {
+      return res.status(403).json({ message: "Not authorised" });
+    }
     const property = await Property.findById(req.params.id);
 
     if (!property) {

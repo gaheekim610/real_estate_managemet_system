@@ -9,11 +9,17 @@ https://gaheekimmw.atlassian.net/jira/software/projects/REMS/boards/35
 - Follow the trigger (when pushing to the main branch)
 
 Step 1. Setup node.js (this project would be set 22 version)
+
 Step 2. pm2 Stop all (Stop all the process such as previous backend server)
+
 Step 3. Install dependencies for backend
+
 Step 4. Install dependencies and build for frontend
+
 Step 5. Create and add .env file
+
 Step 6. Run backend test to test CRUD
+
 Step 7. pm2 Restart
 
 ## Project setup instructions
@@ -22,22 +28,22 @@ Step 1. Git clone the repository
 Step 2. Install backend dependencies
 
 <pre>
-```bash
 cd backend
 npm install
-```
 </pre>
 
 Step 3. Install frontend dependencies
 
 <pre>
-```bash
 cd frontend
 npm stall
-```
 </pre>
 
-Step 4. Run npm run dev at the root of this project
+Step 4. Run the project
+
+<pre>
+npm run dev
+</pre>
 
 ## **Objective**
 

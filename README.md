@@ -1,13 +1,52 @@
 # **Assignment: Full-Stack CRUD Application Development with DevOps Practices**
 
+## JIRA board URL
+
+https://gaheekimmw.atlassian.net/jira/software/projects/REMS/boards/35
+
+## CI/CD Pipeline Detail
+
+- Follow the trigger (when pushing to the main branch)
+
+Step 1. Setup node.js (this project would be set 22 version)
+Step 2. pm2 Stop all (Stop all the process such as previous backend server)
+Step 3. Install dependencies for backend
+Step 4. Install dependencies and build for frontend
+Step 5. Create and add .env file
+Step 6. Run backend test to test CRUD
+Step 7. pm2 Restart
+
+## Project setup instructions
+
+Step 1. Git clone the repository
+Step 2. Install backend dependencies
+
+<pre>
+```bash
+cd backend
+npm install
+```
+</pre>
+
+Step 3. Install frontend dependencies
+
+<pre>
+```bash
+cd frontend
+npm stall
+```
+</pre>
+
+Step 4. Run npm run dev at the root of this project
+
 ## **Objective**
 
-You have been provided with a starter project that includes user authentication using  **Node.js, React.js, and MongoDB**. Your task is to extend this application by implementing **CRUD (Create, Read, Update, Delete) operations** for a real-world application of your choice, while following industry best practices such as:
+You have been provided with a starter project that includes user authentication using **Node.js, React.js, and MongoDB**. Your task is to extend this application by implementing **CRUD (Create, Read, Update, Delete) operations** for a real-world application of your choice, while following industry best practices such as:
 
-* **Project Management with JIRA**
-* **Requirement Diagram using SysML**
-* **Version Control using GitHub**
-* **CI/CD Integration for Automated Deployment**
+- **Project Management with JIRA**
+- **Requirement Diagram using SysML**
+- **Version Control using GitHub**
+- **CI/CD Integration for Automated Deployment**
 
 ## **Requirements**
 
@@ -17,52 +56,52 @@ Select a meaningful use case for your CRUD operations. We will provide the list,
 
 ### **2. Project Management with JIRA and SysML**
 
-* Create a **JIRA project** and define:
-  * **Epic**
-  * **User Stories** (features required in your app)
-  * **Child issues & Subtasks** (breaking down development work)
-  * **Sprint Planning** (organizing work into milestones)
-* Document your JIRA **board URL** in the project README.
-* Draw a requirements diagram
+- Create a **JIRA project** and define:
+  - **Epic**
+  - **User Stories** (features required in your app)
+  - **Child issues & Subtasks** (breaking down development work)
+  - **Sprint Planning** (organizing work into milestones)
+- Document your JIRA **board URL** in the project README.
+- Draw a requirements diagram
 
 ### **3. Backend Development (Node.js + Express + MongoDB)**
 
-* Create a user-friendly interface to interact with your API (Some portion developed, follow task manager app)).
-* Implement **forms** for adding and updating records.
-* Display data using  **tables, cards, or lists (Follow how we showed data in task manager app)**
+- Create a user-friendly interface to interact with your API (Some portion developed, follow task manager app)).
+- Implement **forms** for adding and updating records.
+- Display data using **tables, cards, or lists (Follow how we showed data in task manager app)**
 
 ### **4. Frontend Development (React.js)**
 
-* Create a user-friendly interface to interact with your API (**Some portion developed, follow task manager app)**.
-* Implement **forms** for adding, showing, deleting and updating records (CRUD).
-* Display data using  **tables, cards, or lists (Follow how we showed data in task manager app)**
+- Create a user-friendly interface to interact with your API (**Some portion developed, follow task manager app)**.
+- Implement **forms** for adding, showing, deleting and updating records (CRUD).
+- Display data using **tables, cards, or lists (Follow how we showed data in task manager app)**
 
 ### **5. Authentication & Authorization**
 
-* Ensure **only authenticated users** can access and perform CRUD operations. (Already developed in your project)
-* Use **JWT (JSON Web Tokens)** for user authentication (Use the task manager one from .env file).
+- Ensure **only authenticated users** can access and perform CRUD operations. (Already developed in your project)
+- Use **JWT (JSON Web Tokens)** for user authentication (Use the task manager one from .env file).
 
 ### **6. GitHub Version Control & Branching Strategy**
 
-* Use **GitHub for version control** and maintain:
-  * `main` branch (stable production-ready code)
-  * Feature branches (`feature/xyz`) for each new functionality
-* Follow proper **commit messages** and  **pull request (PR) reviews** .
+- Use **GitHub for version control** and maintain:
+  - `main` branch (stable production-ready code)
+  - Feature branches (`feature/xyz`) for each new functionality
+- Follow proper **commit messages** and **pull request (PR) reviews** .
 
 ### **7. CI/CD Pipeline Setup**
 
-* Implement a **CI/CD pipeline using GitHub Actions** to:
-  * Automatically **run tests** on every commit/pull request (Optional).
-  * Deploy the **backend** to **AWS** .
-  * Deploy the **frontend** to **AWS**.
-* Document your  **CI/CD workflow in the README** .
+- Implement a **CI/CD pipeline using GitHub Actions** to:
+  - Automatically **run tests** on every commit/pull request (Optional).
+  - Deploy the **backend** to **AWS** .
+  - Deploy the **frontend** to **AWS**.
+- Document your **CI/CD workflow in the README** .
 
 ## **Submission Requirements**
 
-* **JIRA Project Board URL** (user stories ).
-* **Requirment diagram** (Using project features)
-* **GitHub Repository** (`backend/` and `frontend/`).
-* **README.md** with:
+- **JIRA Project Board URL** (user stories ).
+- **Requirment diagram** (Using project features)
+- **GitHub Repository** (`backend/` and `frontend/`).
+- **README.md** with:
 
-  * Project setup instructions.
-  * CI/CD pipeline details.
+  - Project setup instructions.
+  - CI/CD pipeline details.

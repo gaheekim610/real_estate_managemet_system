@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Print Env Secret
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
@@ -29,7 +30,9 @@ jobs:
           echo "Secret 1 is: $MONGO_URI"
           echo "Secret 2 is: $JWT_SECRET"
           echo "Secret 3 is: $PORT"
+
       - run: pm2 stop all
+
       # Install dependencies for backend
       - name: Install Backend Dependencies
         working-directory: ./backend
@@ -37,6 +40,7 @@ jobs:
           npm install --global yarn
           yarn --version
           yarn install
+
       # Install dependencies for frontend
       - name: Install Frontend Dependencies
         working-directory: ./frontend
@@ -45,18 +49,20 @@ jobs:
           sudo rm -rf ./build
           yarn install
           yarn run build
-      # Run backend tests
+
+      - name: Create .env file
+        working-directory: ./backend
+        run: echo "${{ secrets.PROD }}" > .env
+
       - name: Run Backend Tests
+        working-directory: ./backend
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           PORT: ${{ secrets.PORT }}
-        working-directory: ./backend
         run: npm test
+
       - run: npm ci
-      - run: |
-          cd ./backend
-          touch .env
-          echo "${{ secrets.PROD }}" > .env
+
       - run: pm2 start all
       - run: pm2 restart all

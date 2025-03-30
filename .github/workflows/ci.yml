@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main # Trigger CI on pushes to the main branch
+      - test/workflow # Test branch
 jobs:
   test:
     name: Run Tests
@@ -29,6 +30,45 @@ jobs:
           echo "Secret 1 is: $MONGO_URI"
           echo "Secret 2 is: $JWT_SECRET"
           echo "Secret 3 is: $PORT"
+
+      - name: Cleanup old builds & node_modules if exist
+        run: |
+          echo "Disk usage BEFORE cleanup:"
+          df -h
+
+          echo "Starting cleanup..."
+
+          if [ -d "frontend/build" ]; then
+            echo "Deleting frontend/build"
+            rm -rf frontend/build
+          else
+            echo "frontend/build does not exist"
+          fi
+
+          if [ -d "frontend/node_modules" ]; then
+            echo "Deleting frontend/node_modules"
+            rm -rf frontend/node_modules
+          else
+            echo "frontend/node_modules does not exist"
+          fi
+
+          if [ -d "backend/node_modules" ]; then
+            echo "Deleting backend/node_modules"
+            rm -rf backend/node_modules
+          else
+            echo "backend/node_modules does not exist"
+          fi
+
+          # Runner workspace cleanup
+          if [ -d "../_work" ]; then
+            echo "Deleting ../_work"
+            rm -rf ../_work
+          else
+            echo "../_work does not exist"
+          fi
+
+          echo "Disk usage AFTER cleanup:"
+          df -h
       - run: pm2 stop all
       # Install dependencies for backend
       - name: Install Backend Dependencies

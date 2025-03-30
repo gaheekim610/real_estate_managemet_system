@@ -57,6 +57,6 @@ jobs:
       - run: |
           cd ./backend
           touch .env
-          printf "%s\n" "${{ secrets.PROD }}" > .env
+          echo "${{ secrets.PROD }}" > .env
       - run: pm2 start all
       - run: pm2 restart all

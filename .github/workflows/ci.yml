@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main # Trigger CI on pushes to the main branch
+      - test/workflow # Test branch
 jobs:
   test:
     name: Run Tests
@@ -52,7 +53,10 @@ jobs:
 
       - name: Create .env file
         working-directory: ./backend
-        run: echo "${{ secrets.PROD }}" > .env
+        run: |
+          touch .env
+          echo "${{ secrets.PROD }}" > .env
+          echo ".env created with $(wc -l < .env) lines"
 
       - name: Run Backend Tests
         working-directory: ./backend

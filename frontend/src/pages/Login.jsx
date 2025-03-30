@@ -54,10 +54,6 @@ const Login = () => {
     }
   }, [alert]);
 
-  useEffect(() => {
-    console.log("🔥 alert 상태 확인:", alert);
-  }, [alert]);
-
   return (
     <>
       {alert && (

@@ -29,16 +29,6 @@ function App() {
           path="/"
           element={user ? <Navigate to="/property" replace /> : <Login />}
         />
-        <Route
-          path="/"
-          element={
-            user ? (
-              <Navigate to="/property" replace />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
 
         <Route
           path="/login"
@@ -62,10 +52,6 @@ function App() {
           path="/property"
           element={user ? <Property /> : <Navigate to="/login" replace />}
         />
-        {/* <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register role={role} />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/property" element={<Property />} /> */}
       </Routes>
     </Router>
   );

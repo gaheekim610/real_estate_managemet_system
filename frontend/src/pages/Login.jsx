@@ -23,13 +23,15 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axiosInstance.post("/api/auth/login", formData);
-      login(response.data);
 
       setAlert({
         type: "success",
         message: "Successfully Log in",
       });
-      navigate("/property");
+      setTimeout(() => {
+        login(response.data);
+        navigate("/property");
+      }, 1000);
     } catch (error) {
       // alert("Login failed. Please try again.");
       const errMsg =
@@ -42,12 +44,18 @@ const Login = () => {
   };
 
   useEffect(() => {
+    console.log("alert", alert);
+
     if (alert) {
       const timer = setTimeout(() => {
         setAlert(null);
       }, 3000);
       return () => clearTimeout(timer);
     }
+  }, [alert]);
+
+  useEffect(() => {
+    console.log("🔥 alert 상태 확인:", alert);
   }, [alert]);
 
   return (

@@ -94,20 +94,19 @@ const updateUserProfile = async (req, res) => {
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    const { name, email, university, address } = req.body;
+    const { name, email, agentname, agentcode } = req.body;
     user.name = name || user.name;
     user.email = email || user.email;
-    user.university = university || user.university;
-    user.address = address || user.address;
+    user.agentname = agentname || user.agentname;
+    user.agentcode = agentcode || user.agentcode;
 
     const updatedUser = await user.save();
     res.json({
       id: updatedUser.id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      university: updatedUser.university,
-      address: updatedUser.address,
-      token: generateToken(updatedUser.id),
+      email: user.email,
+      agentname: user.agentname,
+      agentcode: user.agentcode,
+      token: generateToken(user.id),
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
